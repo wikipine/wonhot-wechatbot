@@ -19,8 +19,7 @@ logs
 .idea
 
 # Local env files
-!.env.example
-!env/.env.example
+env
 
 .history
 *.memory-card.json
