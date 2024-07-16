@@ -4,6 +4,7 @@ import { useBase, createRouter, defineEventHandler } from 'h3';
 import * as AuthController from '~/server/controller/AuthController';
 import * as RulesController from '@/server/controller/RuleController';
 import * as BotController from '@/server/controller/BotController';
+import * as MessageController from '@/server/controller/MessageController';
 
 const router = createRouter();
 
@@ -24,5 +25,9 @@ router.post('/bot/update', defineEventHandler(BotController.updateBot));
 router.post('/bot/delete', defineEventHandler(BotController.deleteBot));
 router.post('/bot/login', defineEventHandler(BotController.loginBot));
 router.post('/bot/login/out', defineEventHandler(BotController.loginOutBot));
+
+// 消息管理
+router.get('/message/page/list', defineEventHandler(MessageController.getMessagePageList));
+router.post('/message/send/test', defineEventHandler(MessageController.sendMessageTest));
 
 export default useBase('/api', router.handler);

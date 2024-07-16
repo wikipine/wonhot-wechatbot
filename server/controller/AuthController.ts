@@ -23,7 +23,7 @@ export const login = async (evt: H3Event) => {
             const token = jwt.sign(payload, config.public['VITE_JWT_SECRET_KEY']);
             return responseSuccess(token);
         } else {
-            return responseError(ErrorCodeEnum.UNAUTHORIZED, '账号或密码错误');
+            return responseError(ErrorCodeEnum.BAD_REQUEST, '账号或密码错误');
         }
     } catch (err: any) {
         return responseError(ErrorCodeEnum.INTERNAL_SERVER_ERROR, err.message);

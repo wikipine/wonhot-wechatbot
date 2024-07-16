@@ -1,6 +1,7 @@
 import MessageModel from '~/server/model/MessageModel';
-import type { Message } from "wechaty";
-import { Op } from "sequelize";
+import type {Message} from "wechaty";
+import {Op} from "sequelize";
+import type {MessagePageQueryType} from "~/types/request/message";
 
 export class MessageService {
 
@@ -24,7 +25,7 @@ export class MessageService {
             listener_name: listener?.name(),
             // 头像需要解析暂不处理
             listener_avatar: '',
-            listener_genger: listener?.gender() ?? 0,
+            listener_gender: listener?.gender() ?? 0,
             listener_alias: await listener?.alias() ?? '',
             room_id: room?.id,
             room_name: room?.payload?.topic as string,
@@ -34,8 +35,7 @@ export class MessageService {
             message_content: message.text(),
             message_at: message.date()
         }
-        const result = await MessageModel.create(addData);
-        return result;
+        return await MessageModel.create(addData);
 
     }
 
@@ -50,8 +50,8 @@ export class MessageService {
                 }
             }
         });
-        const resultObj = {};
-        res.forEach(item => {
+        const resultObj: any = {};
+        res.forEach((item: any) => {
             resultObj[item.id] = {
                 id: item.id,
                 bot_id: item.bot_id,
@@ -67,5 +67,33 @@ export class MessageService {
         })
         return resultObj;
     }
-    
+
+    /**
+     * 已经机器人ID获取消息列表
+     */
+    async getMessageListByBotId(params: MessagePageQueryType) {
+        let filter: any = {};
+        filter.bot_id = params.botId;
+        // 关键词查询消息内容
+        if(params.keyword) {
+            filter.message_content = {
+                [Op.like]: `%${params.keyword}%`
+            }
+        }
+        const { count, rows } = await MessageModel.findAndCountAll({
+            where: filter,
+            order: [
+                ['id', 'DESC']
+            ],
+            limit: params.pageSize,
+            offset: ((params.page ?? 1) - 1) * (params.pageSize ?? 20)
+        });
+        return {
+            total: count,
+            page: params.page,
+            pageSize: params.pageSize,
+            list: rows
+        };
+    }
+
 }

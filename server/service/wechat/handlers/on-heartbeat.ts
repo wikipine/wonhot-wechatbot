@@ -5,7 +5,7 @@ import type { Wechaty } from 'wechaty';
 import { log } from 'wechaty';
 import { BotService } from '@/server/service/BotService';
 
-async function onHeartBeat (this: Wechaty, data) {
+async function onHeartBeat (this: Wechaty, data: any) {
   log.info('心跳检测');
   console.log(data);
   const type = data.split(':')[1];

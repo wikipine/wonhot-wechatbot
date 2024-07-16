@@ -4,10 +4,7 @@
 import type { Message, Wechaty } from "wechaty";
 import { RuleReplyService } from '@/server/service/RuleReplyService';
 import { MessageService } from '@/server/service/MessageService';
-import { OrderService } from '@/server/service/OrderService';
 import { getBotIdByName } from '@/server/utils/handler';
-import type { OrderDO } from '~/types/dao';
-
 
 export async function onMessage(this: Wechaty, message: Message) {
   const room = message.room();
@@ -24,18 +21,6 @@ export async function onMessage(this: Wechaty, message: Message) {
   const messageService = new MessageService();
   messageService.addMessageRecord(message, botId).then(res=>{
     // 添加完成后执行的操作
-    if(res) {
-      const params: OrderDO = {
-        bot_id: botId,
-        msg_id: res.getDataValue('id'),
-        uid: res.getDataValue('talker_id'),
-        user_name: res.getDataValue('talker_name'),
-        content: res.getDataValue('message_content'),
-        time: res.getDataValue('message_at')
-      }
-      const service = new OrderService();
-      service.addOrderRecord(params);
-    }
   });
   // 回复处理 - 同步返回
   const ruleReplyService = new RuleReplyService();
