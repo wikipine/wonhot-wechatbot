@@ -4,7 +4,6 @@ import { useBase, createRouter, defineEventHandler } from 'h3';
 import * as AuthController from '~/server/controller/AuthController';
 import * as RulesController from '@/server/controller/RuleController';
 import * as BotController from '@/server/controller/BotController';
-import * as OrderController from '@/server/controller/OrderController';
 
 const router = createRouter();
 
@@ -25,8 +24,5 @@ router.post('/bot/update', defineEventHandler(BotController.updateBot));
 router.post('/bot/delete', defineEventHandler(BotController.deleteBot));
 router.post('/bot/login', defineEventHandler(BotController.loginBot));
 router.post('/bot/login/out', defineEventHandler(BotController.loginOutBot));
-
-// 订单管理
-router.get('/order/list', defineEventHandler(OrderController.getOrderList));
 
 export default useBase('/api', router.handler);

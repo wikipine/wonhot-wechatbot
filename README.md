@@ -10,3 +10,6 @@ https://www.yuque.com/atorber/chatflow
 **启动环境名：.env.dev**
 
 **部署环境名：.env.prod**
+
+### 登录账号
+固定：admin / temp-W8g)gvnh3ykNz#8b

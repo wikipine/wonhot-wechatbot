@@ -10,20 +10,6 @@ export const menuOptions = [
         }
     },
     {
-        name: "order-list",
-        label: "订单列表",
-        icon: () => {
-            return h(Icon, { name: 'uil:file-info-alt', size: '18' })
-        }
-    },
-    {
-        name: "stat",
-        label: "数据统计",
-        icon: () => {
-            return h(Icon, { name: 'uil:file-info-alt', size: '18' })
-        }
-    },
-    {
         name: "bot",
         label: "机器人",
         icon: () => {
