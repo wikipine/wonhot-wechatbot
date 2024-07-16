@@ -1,2 +1,5 @@
-# wonhot-wechatbot
-基于 Nuxt3 + Wechaty 的个人微信机器人小项目
+# 基于 Nuxt3 + Wechaty
+
+参考 ChatFlow
+
+https://www.yuque.com/atorber/chatflow
